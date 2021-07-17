@@ -23,7 +23,7 @@
 			.countdown
 			{
 				font-family: monospace;
-				width: 200px;
+				width: 400px;
 				color: rgba(255, 255, 255, 0.9);
 			}
 
@@ -382,14 +382,14 @@
 		</script>
 		<script>
 			const urlSearchParams = new URLSearchParams(window.location.search);
-
 			const countdownElement = document.getElementsByClassName("countdown")[0];
 			const titleElement = document.getElementsByClassName("title")[0];
 			const timerElement = document.getElementsByClassName("timer")[0];
 			const backgroundColor = urlSearchParams.get("backgroundColor");
 			const textColor = urlSearchParams.get("textColor");
-			const width = urlSearchParams.get("width");
 			const title = urlSearchParams.get("title");
+			const date = urlSearchParams.get("date");
+			const width = urlSearchParams.get("width");
 
 			if(backgroundColor != null)
 				document.body.style.backgroundColor = backgroundColor;
@@ -410,6 +410,28 @@
 			}
 			else
 				titleElement.parentNode.removeChild(titleElement);
+
+			if(date != null)
+			{
+				const second = 1000;
+				const minute = second * 60;
+				const hour = minute * 60;
+				const day = hour * 24;
+				const endDate = new Date(date);
+
+				const zeroPad = (num, places) =>
+					String(num).padStart(places, "0");
+
+				const updateTimer = () =>
+				{
+					const differenceDate = endDate.getTime() - Date.now();
+
+					timerElement.innerText = `${zeroPad(Math.floor(differenceDate / day), 2)}:${zeroPad(Math.floor((differenceDate % day) / hour), 2)}:${zeroPad(Math.floor((differenceDate % hour) / minute), 2)}:${zeroPad(Math.floor((differenceDate % minute) / second), 2)}`;
+				}
+
+				updateTimer();
+				setInterval(updateTimer, 1000);
+			}
 
 			fitty(timerElement);
 		</script>
