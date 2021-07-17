@@ -396,6 +396,7 @@
 			const title = urlSearchParams.get("title");
 			const date = urlSearchParams.get("date");
 			const width = urlSearchParams.get("width");
+			const align =urlSearchParams.get("align");
 
 			if(backgroundColor != null)
 				document.body.style.backgroundColor = backgroundColor;
@@ -408,6 +409,10 @@
 
 			if(width != null)
 				countdownElement.style.width = `${width}px`;
+
+			if(align != null)
+				document.body.style.alignItems = align;
+				document.body.style.justifyContent = align;
 
 			if(title != null)
 			{
