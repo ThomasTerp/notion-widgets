@@ -22,7 +22,7 @@
 
 			.countdown
 			{
-				font-family: monospace;
+				font-family: "Courier New", Courier, monospace;
 				width: 400px;
 				color: rgba(255, 255, 255, 0.9);
 			}
@@ -430,7 +430,7 @@
 					timerElement.innerText = `${zeroPad(Math.floor(differenceDate / day), 2)}:${zeroPad(Math.floor((differenceDate % day) / hour), 2)}:${zeroPad(Math.floor((differenceDate % hour) / minute), 2)}:${zeroPad(Math.floor((differenceDate % minute) / second), 2)}`;
 
 					if(differenceDate == 0)
-						clearInterval(timerInterval)
+						clearInterval(timerInterval);
 				}
 
 				timerInterval = setInterval(updateTimer, 1000);
