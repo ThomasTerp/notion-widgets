@@ -439,8 +439,18 @@
 				const updateTimer = () =>
 				{
 					const differenceDate = Math.max(endDate.getTime() - Date.now(), 0);
+					const days = zeroPad(Math.floor(differenceDate / day), 2);
+					const hours = zeroPad(Math.floor((differenceDate % day) / hour), 2);
+					const minutes = zeroPad(Math.floor((differenceDate % hour) / minute), 2);
+					const seconds = zeroPad(Math.floor((differenceDate % minute) / second), 2);
 
-					timerElement.innerText = `${zeroPad(Math.floor(differenceDate / day), 2)}:${zeroPad(Math.floor((differenceDate % day) / hour), 2)}:${zeroPad(Math.floor((differenceDate % hour) / minute), 2)}:${zeroPad(Math.floor((differenceDate % minute) / second), 2)}`;
+					if(hours <= 0)
+						timerElement.innerText = `${minutes}:${seconds}`;
+					else if(days <= 0)
+						timerElement.innerText = `${hours}:${minutes}:${seconds}`;
+					else
+						timerElement.innerText = `${days}:${hours}:${minutes}:${seconds}`;
+
 
 					if(differenceDate == 0)
 						clearInterval(timerInterval);
