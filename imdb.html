@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Notion Widgets - IMDB</title>
+		<style>
+			html, body
+			{
+				margin: 0px;
+				padding: 0px;
+
+				width: 100%;
+				height: 100%;
+
+				background-color: rgb(47, 52, 55);
+
+                display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			*
+			{
+				overflow: hidden;
+			}
+
+            .imdbURL {
+                width: 256px;
+                height: 22px;
+                border: none;
+                border-top-left-radius: 3px;
+                border-bottom-left-radius: 3px;
+                background: rgba(255, 255, 255, 0.9);
+            }
+            .imdbURL:focus {
+                outline: 0;
+            }
+
+            .importMovie {
+                height: 24px;
+                border: none;
+                user-select: none;
+                transition: background 20ms ease-in 0s;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                white-space: nowrap;
+                border-top-right-radius: 3px;
+                border-bottom-right-radius: 3px;
+                color: white;
+                line-height: 1.2;
+                background: rgb(46, 170, 220);
+                padding-left: 8px;
+                padding-right: 8px;
+                font-size: 14px;
+                font-weight: 500;
+            }
+            .importMovie:hover {
+                background: rgb(6,156,205);
+            }
+		</style>
+	</head>
+	<body>
+        <input class="imdbURL" type="url" placeholder="IMDB URL">
+		<input class="importMovie" type="button" value="Import" onclick="importMovie();" />
+		<script>
+			function post(url, data)
+			{
+				return fetch(url, {
+					method: "POST",
+					body: JSON.stringify(data)
+				});
+			}
+
+            function importMovie()
+            {
+                const urlSearchParams = new URLSearchParams(window.location.search);
+                const notionKey = urlSearchParams.get("notionKey");
+                const databaseID = urlSearchParams.get("databaseID");
+                const imdbURL = document.querySelector(".imdbURL").value;
+
+                fetch("https://api.notion.com/v1/users")
+                    .then(response => response.json())
+                    .then(data => console.log(data));
+            }
+		</script>
+	</body>
+</html>
